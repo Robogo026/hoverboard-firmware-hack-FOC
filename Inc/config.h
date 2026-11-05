@@ -160,7 +160,7 @@
 
 // Limitation settings
 #define I_MOT_MAX       15              // [A] Maximum single motor current limit
-#define I_DC_MAX        17              // [A] Maximum stage2 DC Link current limit for Commutation and Sinusoidal types (This is the final current protection. Above this value, current chopping is applied. To avoid this make sure that I_DC_MAX = I_MOT_MAX + 2A)
+#define I_DC_MAX        20              // [A] Maximum stage2 DC Link current limit for Commutation and Sinusoidal types (This is the final current protection. Above this value, current chopping is applied. To avoid this make sure that I_DC_MAX = I_MOT_MAX + 2A)
 #define N_MOT_MAX       120             // [rpm] Maximum motor speed limit
 
 // Field Weakening / Phase Advance
@@ -256,7 +256,7 @@
  *
 */
 
-// #define DEBUG_SERIAL_USART2          // left sensor board cable, disable if ADC or PPM is used!
+#define DEBUG_SERIAL_USART2          // left sensor board cable, disable if ADC or PPM is used!
 // #define DEBUG_SERIAL_USART3          // right sensor board cable, disable if I2C (nunchuk or lcd) is used!
 // #define DEBUG_SERIAL_PROTOCOL        // uncomment this to send user commands to the board, change parameters and print specific signals (see comms.c for the user commands)
 // ########################### END OF DEBUG SERIAL ############################
