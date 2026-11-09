@@ -10,7 +10,7 @@
 // Ubuntu: define the desired build variant here if you want to use make in console
 // or use VARIANT environment variable for example like "make -e VARIANT=VARIANT_NUNCHUK". Select only one at a time.
 
-#define VARIANT_USART       // Variant for Serial control via USART3 input
+#define VARIANT_USART           // Variant for Serial control via USART3 input
 
 #if !defined(PLATFORMIO)
   //#define VARIANT_ADC         // Variant for control via ADC input
@@ -164,7 +164,7 @@
 // Limitation settings
 #define I_MOT_MAX       15              // [A] Maximum single motor current limit
 #define I_DC_MAX        20              // [A] Maximum stage2 DC Link current limit for Commutation and Sinusoidal types (This is the final current protection. Above this value, current chopping is applied. To avoid this make sure that I_DC_MAX = I_MOT_MAX + 2A)
-#define N_MOT_MAX       119            // [rpm] Maximum motor speed limit
+#define N_MOT_MAX       119             // [rpm] Maximum motor speed limit
 
 // Field Weakening / Phase Advance
 #define FIELD_WEAK_ENA  0               // [-] Field Weakening / Phase Advance enable flag: 0 = Disabled (default), 1 = Enabled
