@@ -84,6 +84,9 @@ extern uint8_t enable;                  // global variable for motor enable
 
 extern int16_t batVoltage;              // global variable for battery voltage
 
+extern int16_t curL_DC;                 // global variable for left DC current  EZ lett hozzáadva
+extern int16_t curR_DC;                 // global variable for right DC current EZ lett hozzáadva 
+
 #if defined(SIDEBOARD_SERIAL_USART2)
 extern SerialSideboard Sideboard_L;
 #endif
@@ -134,8 +137,8 @@ typedef struct{
 #endif
   int16_t   batVoltage;
   int16_t   boardTemp;
-  int16_t   currR;        // <-- EZT ADD HOZZÁ kerekenkénti áramfelvétel JOBB
-  int16_t   currL;        // <-- EZT ADD HOZZÁ kerekenkénti áramfelvétel lBAL
+  int16_t   currR;        // <-- EZ lett hozzáadva - kerekenkénti áramfelvétel JOBB
+  int16_t   currL;        // <-- EZ lett hozzáadva - kerekenkénti áramfelvétel BAL
   uint16_t  cmdLed;
   uint16_t  checksum;
 } SerialFeedback;
@@ -533,7 +536,9 @@ int main(void) {
 #endif
         Feedback.batVoltage	    = (int16_t)batVoltageCalib;
         Feedback.boardTemp	    = (int16_t)board_temp_deg_c;
-
+        Feedback.currR          = (int16_t)curR_DC;
+        Feedback.currL          = (int16_t)curL_DC;
+		  
         #if defined(FEEDBACK_SERIAL_USART2)
           if(__HAL_DMA_GET_COUNTER(huart2.hdmatx) == 0) {
             Feedback.cmdLed     = (uint16_t)sideboard_leds_L;
@@ -541,8 +546,8 @@ int main(void) {
 #ifdef ENABLE_ODOMETRY
                                            ^ Feedback.wheelR_cnt ^ Feedback.wheelL_cnt
 #endif
-                                           ^ Feedback.batVoltage ^ Feedback.boardTemp ^ Feedback.cmdLed);
-
+                                           ^ Feedback.batVoltage ^ Feedback.boardTemp ^ Feedback.currR ^ Feedback.currL ^ Feedback.cmdLed);
+			  
             HAL_UART_Transmit_DMA(&huart2, (uint8_t *)&Feedback, sizeof(Feedback));
           }
         #endif
@@ -553,7 +558,7 @@ int main(void) {
 #ifdef ENABLE_ODOMETRY
                                            ^ Feedback.wheelR_cnt ^ Feedback.wheelL_cnt
 #endif
-                                           ^ Feedback.batVoltage ^ Feedback.boardTemp ^ Feedback.cmdLed);
+                                           ^ Feedback.batVoltage ^ Feedback.boardTemp ^ Feedback.currR ^ Feedback.currL ^ Feedback.cmdLed);
 
             HAL_UART_Transmit_DMA(&huart3, (uint8_t *)&Feedback, sizeof(Feedback));
           }
