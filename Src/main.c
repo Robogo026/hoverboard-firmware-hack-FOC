@@ -134,6 +134,8 @@ typedef struct{
 #endif
   int16_t   batVoltage;
   int16_t   boardTemp;
+  int16_t   currR;        // <-- EZT ADD HOZZÁ kerekenkénti áramfelvétel JOBB
+  int16_t   currL;        // <-- EZT ADD HOZZÁ kerekenkénti áramfelvétel lBAL
   uint16_t  cmdLed;
   uint16_t  checksum;
 } SerialFeedback;
